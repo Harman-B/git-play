@@ -6,11 +6,17 @@ var getCommits = () => {
 
   fetch(commitsURL)
     .then(result => {
+      //result is a prototype of response
+      //result.json() is a promise
+      //this is done to convet readable stream into an object
       return result.json();
     })
     .then(data => {
+      //data is a prototype of object
+
+      console.log(data);
       commits = data.commits;
-      console.log(commits);
+      // console.log(commits);
       displayCommit(commits);
       // document.getElementById('commits').innerText = JSON.stringify(commits);
     })
