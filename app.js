@@ -13,8 +13,6 @@ var getCommits = () => {
     })
     .then(data => {
       //data is a prototype of object
-
-      console.log(data);
       commits = data.commits;
       // console.log(commits);
       displayCommit(commits);
@@ -31,7 +29,7 @@ var displayCommit = (commits) => {
   document.getElementById('numberOfCommits').innerText = commits.length;
   for (var i = 0; i < commits.length; i++) {
 
-    html = '<p class="commitID"><strong>Commit ID:</strong> %id% </p><p class="commitMsg"><strong>Message:</strong> %message% </p><br>'
+    html = '<div class="commit"><p class="commitID"><strong>Commit ID:</strong> %id% </p><p class="commitMsg"><strong>Message:</strong> %message% </p><br></div>'
     newHtml = html.replace('%id', commits[i].id);
     newHtml = newHtml.replace('%message%', commits[i].message);
 
