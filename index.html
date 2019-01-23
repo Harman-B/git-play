@@ -4,17 +4,32 @@
     <meta charset="utf-8">
     <title>Git Replay</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="app.js" charset="utf-8"></script>
   </head>
+
   <body>
-    <h2>Total Commits</h2>
-    <p id="numberOfCommits">5</p>
-    <h2>Commits</h2>
-    <div class="commitDisplay">
-      <!-- <div class="commit">
-        <p class="commitID">Commit ID: Some ID </p>
-        <p class="commitMsg">Message: Some message</p>
-      </div> -->
+    <div class="container">
+      <hr>
+      <div class="jumbotron">
+        <h1 class="display-4">Welcome to Git-play</h1>
+        <p>This site unables you to replay git repositories.</p>
+        <button class="btn btn-primary btn-lg">Add Repository</button>
+        <button class="btn btn-primary btn-lg" onclick="getCommits()">Demo Repository</button>
+      </div>
+
+      <h3>Total Commits: <span id="numberOfCommits" class="">0</span></h3>
+
+      <h3>Commits</h3>
+      <div id="commitDisplay" class="code">
+        <!-- <div class="commit">
+          <p class="commitID">Commit ID: Some ID </p>
+          <p class="commitMsg">Message: Some message</p>
+        </div> -->
+      </div>
+
+      <div id="commitDetails" class="container">
+      </div>
     </div>
   </body>
 </html>

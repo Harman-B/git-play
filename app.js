@@ -15,24 +15,38 @@ var getCommits = () => {
       //data is a prototype of object
       commits = data.commits;
       // console.log(commits);
-      displayCommit(commits);
+      listCommits(commits);
       // document.getElementById('commits').innerText = JSON.stringify(commits);
     })
     .catch(error => console.log(error));
 }
 
-getCommits();
+// var commits = getCommits();
 
-var displayCommit = (commits) => {
+var listCommits = (commits) => {
+  console.log(commits);
   let html, newHtml;
-
   document.getElementById('numberOfCommits').innerText = commits.length;
   for (var i = 0; i < commits.length; i++) {
-
-    html = '<div class="commit"><p class="commitID"><strong>Commit ID:</strong> %id% </p><p class="commitMsg"><strong>Message:</strong> %message% </p><br></div>'
-    newHtml = html.replace('%id', commits[i].id);
-    newHtml = newHtml.replace('%message%', commits[i].message);
-
-    document.querySelector('.commitDisplay').insertAdjacentHTML('beforeend', newHtml);
+    html = '<p><button class="btn btn-info" onclick=commitDetails("%id%")><div>Commit:%sno%</div><div>%id%</div></button></p>';
+    newHtml = html.replace('%sno%', i);
+    newHtml = newHtml.replace('%id%', commits[i].id.slice(0,5));
+    newHtml = newHtml.replace('%id%', commits[i].id.slice(0,5));
+    document.querySelector('#commitDisplay').insertAdjacentHTML('beforeend', newHtml);
   }
+};
+
+var commitDetails = (id) => {
+  console.log(id);
+  console.log();
+  // let html, newHtml;
+  // document.getElementById('numberOfCommits').innerText = commits.length;
+  // for (var i = 0; i < commits.length; i++) {
+  //
+  //   html = '<div class="commit"><p class="commitID"><strong>Commit ID:</strong> %id% </p><p class="commitMsg"><strong>Message:</strong> %message% </p><br></div>'
+  //   newHtml = html.replace('%id', commits[i].id);
+  //   newHtml = newHtml.replace('%message%', commits[i].message);
+  //   commitBtn = ''
+  //   document.querySelector('#commitDetails').insertAdjacentHTML('beforeend', newHtml);
+  // }
 };
