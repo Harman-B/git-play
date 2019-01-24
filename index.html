@@ -2,9 +2,9 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Git Replay</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Git-play</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <script src="app.js" charset="utf-8"></script>
   </head>
 
@@ -18,18 +18,83 @@
         <button class="btn btn-primary btn-lg" onclick="getCommits()">Demo Repository</button>
       </div>
 
-      <h3>Total Commits: <span id="numberOfCommits" class="">0</span></h3>
+      <div class="row">
+        <div class="col-md-3 board">
+          <h5>Total Commits: <span id="numberOfCommits" class="">4</span></h5>
+          <!-- <h6>Commits ==></h6> -->
+          <ul class="container-fluid">
+            <li class="btn btn-info btn-sm commit-btn active">Commit: <span class="data">0</span> #:<span class="data">fhi2e</span></li>
+            <li class="btn btn-info btn-sm commit-btn">Commit: <span class="data">1</span> #:<span class="data">eidn3</span></li>
+            <li class="btn btn-info btn-sm commit-btn">Commit: <span class="data">2</span> #:<span class="data">l23sd</span></li>
+            <li class="btn btn-info btn-sm commit-btn">Commit: <span class="data">3</span> #:<span class="data">3l4fn</span></li>
+          </ul>
 
-      <h3>Commits</h3>
-      <div id="commitDisplay" class="code">
-        <!-- <div class="commit">
-          <p class="commitID">Commit ID: Some ID </p>
-          <p class="commitMsg">Message: Some message</p>
-        </div> -->
-      </div>
+          <!-- <div id="commitDisplay" class="">
+            <div class="commit-btn">
+              <button class="btn btn-info" onclick=commitDetails("0")>Commit:<span class="data">0</span class="data"> #:<span class="data">fhi2e</span class="data"></button>
+            </div>
+            <div class="commit-btn">
+              <button class="btn btn-info" onclick=commitDetails("1")>Commit:<span class="data">1</span class="data"> #:<span class="data">dk38d</span class="data"></button>
+            </div>
+            <div class="commit-btn">
+              <button class="btn btn-info" onclick=commitDetails("2")>Commit:<span class="data">2</span class="data"> #:<span class="data">dj3fc</span class="data"></button>
+            </div>
+            <div class="commit-btn">
+              <button class="btn btn-info" onclick=commitDetails("3")>Commit:<span class="data">3</span class="data"> #:<span class="data">eidnr</span class="data"></button>
+            </div>
+          </div> -->
+        </div>
 
-      <div id="commitDetails" class="container">
+        <div class="col-md-3 board">
+          <div id="commitDetails" class="">
+            <h5>Commit Details</h5>
+          </div>
+          <div class="container">
+            <div class="">
+              Commit: <span class="data">0</span>
+            </div>
+            <br>
+            <div>
+              Commit Message: <br>
+              <span class="data">Some bug fixes.</span>
+            </div>
+            <br>
+            <div class="">
+              Date:<br>
+              <span class="data">12 Jan 2019 17:33:04</span>
+            </div>
+            <br>
+            <div class="">
+              Files:<br>
+              <ul class="container-fluid">
+                <li class="data btn btn-info btn-sm">app.js</li>
+                <li class="data btn btn-info btn-sm">index.html</li>
+                <li class="data btn btn-info btn-sm active">module.js</li>
+                <li class="data btn btn-info btn-sm">style.css</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 board">
+          <h5>File Details</h5>
+          <code>
+            <pre>var listCommits = (commits) => {
+              console.log(commits);
+              let html, newHtml;
+              document.getElementById('numberOfCommits').innerText = commits.length;
+              for (var i = 0; i < commits.length; i++) {
+                html = '';
+                newHtml = html.replace('%sno%', i);
+                newHtml = newHtml.replace('%id%', commits[i].id.slice(0,5));
+                newHtml = newHtml.replace('%id%', commits[i].id.slice(0,5));
+                document.querySelector('#commitDisplay').insertAdjacentHTML('beforeend', newHtml);
+              }
+            };</pre>
+          </code>
+        </div>
       </div>
     </div>
+
   </body>
 </html>

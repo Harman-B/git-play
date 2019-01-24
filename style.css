@@ -1,3 +1,37 @@
-.commit:hover {
-  /* background-color: grey; */
+.board {
+  background-color: #eeeeee;
+  border: 5px solid white;
+  border-radius: 10px;
+  padding-top: 10px;
+  height: 400px;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.jumbotron {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.board h5 {
+  color: #111199;
+}
+
+.commit-btn {
+  margin: 5px;
+  margin-left: 20px;
+}
+
+.data {
+  font-family: menlo;
+  font-size: 0.8em;
+  font-weight: 700;
+  color: purple;
+}
+
+li {
+  margin-bottom: 5px;
 }
