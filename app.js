@@ -1,52 +1,94 @@
-const repoURL = 'https://cc6116f4-cd7f-414f-bd3e-d5c1eac51148.mock.pstmn.io/repository';
+var username, repoList, commitList;
 
-var getCommits = () => {
-  const commitsURL = 'https://cc6116f4-cd7f-414f-bd3e-d5c1eac51148.mock.pstmn.io/replay/1';
-  let commits;
-
-  fetch(commitsURL)
-    .then(result => {
-      //result is a prototype of response
-      //result.json() is a promise
-      //this is done to convet readable stream into an object
-      return result.json();
+var getRepos = () => {
+  username = document.getElementById('username').value;
+  const url = `https://api.github.com/users/${username}/repos`;
+  console.log(url);
+  fetch(url)
+    .then(result => result.json())
+    .then((data) => {
+      repoList = data;
+      let el = document.getElementById('repoCount');
+      init(el);
+      let list = document.getElementById("repoList");
+      init(list);
+      el.innerText = data.length;
+      for (let i = 0; i < data.length; i++) {
+        let repo = data[i].name;
+        let btn = document.createElement("BUTTON");
+        btn.setAttribute("class", "btn btn-info btn-sm");
+        btn.setAttribute("onClick", `getCommits(${i})`);
+        let content = document.createTextNode(repo);
+        btn.appendChild(content);
+        list.appendChild(btn);
+      }
     })
-    .then(data => {
-      //data is a prototype of object
-      commits = data.commits;
-      // console.log(commits);
-      listCommits(commits);
-      // document.getElementById('commits').innerText = JSON.stringify(commits);
-    })
-    .catch(error => console.log(error));
+    .catch(error => console.log(error))
 }
 
-// var commits = getCommits();
+var getCommits = (number) => {
+  const repoName = repoList[number].name;
+  const urlRepo = `https://api.github.com/repos/${username}/${repoName}/commits`;
+  console.log(number);
+  fetch(urlRepo)
+    .then(result => result.json())
+    .then((data) => {
+      commitList = data;
+      let el = document.getElementById('commitCount');
+      init(el);
+      let list = document.getElementById("commitList");
+      init(list);
+      el.innerText = data.length;
+      for (let i = 0; i < data.length; i++) {
+        let sha = data[i].sha.slice(0, 5);
+        let btn = document.createElement("BUTTON");
+        btn.setAttribute("class", "btn btn-info btn-sm");
+        btn.setAttribute("onClick", `getCommitDetails("${repoName}","${sha}")`);
+        let content = document.createTextNode(`commit: ${i} #:${sha}`);
+        btn.appendChild(content);
+        list.appendChild(btn);
+      }
+    })
+}
 
-var listCommits = (commits) => {
-  console.log(commits);
-  let html, newHtml;
-  document.getElementById('numberOfCommits').innerText = commits.length;
-  for (var i = 0; i < commits.length; i++) {
-    html = '<p><button class="btn btn-info" onclick=commitDetails("%id%")><div>Commit:%sno%</div><div>%id%</div></button></p>';
-    newHtml = html.replace('%sno%', i);
-    newHtml = newHtml.replace('%id%', commits[i].id.slice(0,5));
-    newHtml = newHtml.replace('%id%', commits[i].id.slice(0,5));
-    document.querySelector('#commitDisplay').insertAdjacentHTML('beforeend', newHtml);
-  }
-};
+var getCommitDetails = (repo, sha) => {
+  console.log(repo, sha);
+  const urlCommit = `https://api.github.com/repos/${username}/${repo}/commits/${sha}`;
+  console.log(urlCommit);
+  fetch(urlCommit)
+    .then(result => result.json())
+    .then((data) => {
+      commitDetails = data;
+      let el = document.getElementById('commitDetails');
+      init(el);
+      console.log("Message:", data.commit.message);
+      console.log("Author:", data.commit.author.name);
+      console.log("Author email:", data.commit.author.email);
+      console.log("Date:", data.commit.author.date);
+      console.log("Files modified", data.files.length);
+      let message = data.commit.message;
+      let author = data.commit.author.name;
+      let email = data.commit.author.email;
+      let date = data.commit.author.date;
+      let filesModified = data.files.length;
+      let fileList = data.files;
 
-var commitDetails = (id) => {
-  console.log(id);
-  console.log();
-  // let html, newHtml;
-  // document.getElementById('numberOfCommits').innerText = commits.length;
-  // for (var i = 0; i < commits.length; i++) {
-  //
-  //   html = '<div class="commit"><p class="commitID"><strong>Commit ID:</strong> %id% </p><p class="commitMsg"><strong>Message:</strong> %message% </p><br></div>'
-  //   newHtml = html.replace('%id', commits[i].id);
-  //   newHtml = newHtml.replace('%message%', commits[i].message);
-  //   commitBtn = ''
-  //   document.querySelector('#commitDetails').insertAdjacentHTML('beforeend', newHtml);
-  // }
-};
+      let html = `<div class="commit">Commit: <span class="data">%sha%</span>
+                  </div><div>Commit Message: <br><span class="data">%message%</span>
+                  </div><div class="">Date:<br><span class="data">%date%</span></div>
+                  <div class="">Files modified:<br><span class="data">%filesModified%</span>
+                  </div>`
+
+      let newHtml = html.replace('%sha%', sha);
+      newHtml = newHtml.replace('%message%', message);
+      newHtml = newHtml.replace('%date%', date);
+      newHtml = newHtml.replace('%filesModified%', filesModified);
+      newHtml = newHtml.replace('%filesModified%', filesModified);
+
+      el.insertAdjacentHTML('beforeend', newHtml);
+    })
+}
+
+var init = (el) => {
+  el.innerText = '';
+}
