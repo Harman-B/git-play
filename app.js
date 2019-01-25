@@ -61,11 +61,6 @@ var getCommitDetails = (repo, sha) => {
       commitDetails = data;
       let el = document.getElementById('commitDetails');
       init(el);
-      console.log("Message:", data.commit.message);
-      console.log("Author:", data.commit.author.name);
-      console.log("Author email:", data.commit.author.email);
-      console.log("Date:", data.commit.author.date);
-      console.log("Files modified", data.files.length);
       let message = data.commit.message;
       let author = data.commit.author.name;
       let email = data.commit.author.email;
@@ -74,9 +69,9 @@ var getCommitDetails = (repo, sha) => {
       let fileList = data.files;
 
       let html = `<div class="commit">Commit: <span class="data">%sha%</span>
-                  </div><div>Commit Message: <br><span class="data">%message%</span>
-                  </div><div class="">Date:<br><span class="data">%date%</span></div>
-                  <div class="">Files modified:<br><span class="data">%filesModified%</span>
+                  </div><div>Commit Message: <span class="data">%message%</span>
+                  </div><div class="">Date: <span class="data">%date%</span></div>
+                  <div class="">Files modified: <span class="data">%filesModified%</span>
                   </div>`
 
       let newHtml = html.replace('%sha%', sha);
