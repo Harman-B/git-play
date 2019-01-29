@@ -3,26 +3,28 @@
   border: 5px solid white;
   border-radius: 10px;
   padding-top: 10px;
-  height: 400px;
+  height: auto;
 }
 
-.row {
+/* .row {
   margin-left: 0;
   margin-right: 0;
-}
+} */
 
 .jumbotron {
   padding-top: 20px;
   padding-bottom: 30px;
+  margin-bottom: 5px;
 }
 
-.board h5 {
+/* .board h5 {
   color: #111199;
-}
+} */
 
-.commit-btn {
+
+.btn {
   margin: 5px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 
 .data {
@@ -33,5 +35,5 @@
 }
 
 li {
-  margin-bottom: 5px;
+  margin: 5px;
 }
