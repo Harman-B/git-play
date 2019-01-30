@@ -71,14 +71,27 @@ var loadRepositories = (url) => {
       console.log(result.headers.get('Link'));
       if (result.headers.get('Link')) {
         let linkHeader = result.headers.get('Link');
+        let next = document.getElementById('next-repoList');
+        let prev = document.getElementById('prev-repoList');
+
         if (linkHeader.includes('next')) {
           console.log('there is a next page');
           let url = getPageUrl(linkHeader, 'next');
-          let btn = document.getElementById('next-repoList');
-          btn.disabled = false;
-          btn.setAttribute("onClick", `loadData('${url}')`);
+          next.disabled = false;
+          next.setAttribute("onClick", `loadRepositories('${url}')`);
+        } else {
+          next.disabled = true;
+        }
+        if (linkHeader.includes('prev')) {
+          console.log('there is a prev page');
+          let url = getPageUrl(linkHeader, 'prev');
+          prev.disabled = false;
+          prev.setAttribute("onClick", `loadRepositories('${url}')`);
+        } else {
+          prev.disabled = true;
         }
       }
+      
       return result.json();
     })
     .then((data) => {
