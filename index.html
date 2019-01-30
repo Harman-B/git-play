@@ -36,7 +36,11 @@
 
     <div class="row">
       <div class="col-sm-12 board">
-        <h6>Total Commits: <span id="commitCount" class="data">0</span></h6>
+        <div class="container">
+          <span>Total Commits: <span id="commitCount" class="data">0</span></span>
+          <button class="btn btn-primary btn-sm" id="prev-commitList" disabled>Prev</button>
+          <button class="btn btn-primary btn-sm" id="next-commitList" disabled>Next</button>
+        </div>
         <ul class="container-fluid" id="commitList">
 
         </ul>

@@ -11,25 +11,7 @@ var getCommits = (number) => {
   const repoName = repoList[number].name;
   const urlRepo = `https://api.github.com/repos/${username}/${repoName}/commits`;
   console.log(urlRepo);
-  fetch(urlRepo)
-    .then(result => result.json())
-    .then((data) => {
-      commitList = data;
-      let el = document.getElementById('commitCount');
-      init(el);
-      let list = document.getElementById("commitList");
-      init(list);
-      el.innerText = data.length;
-      for (let i = 0; i < data.length; i++) {
-        let sha = data[i].sha.slice(0, 5);
-        let btn = document.createElement("BUTTON");
-        btn.setAttribute("class", "btn btn-info btn-sm");
-        btn.setAttribute("onClick", `getCommitDetails("${repoName}","${sha}")`);
-        let content = document.createTextNode(`commit: ${i} #:${sha}`);
-        btn.appendChild(content);
-        list.appendChild(btn);
-      }
-    })
+  loadCommits(urlRepo, repoName);
 }
 
 var getCommitDetails = (repo, sha) => {
@@ -91,11 +73,9 @@ var loadRepositories = (url) => {
           prev.disabled = true;
         }
       }
-      
       return result.json();
     })
     .then((data) => {
-
       repoList = data;
       let el = document.getElementById('repoCount');
       init(el);
@@ -108,6 +88,54 @@ var loadRepositories = (url) => {
         btn.setAttribute("class", "btn btn-info btn-sm");
         btn.setAttribute("onClick", `getCommits(${i})`);
         let content = document.createTextNode(repo);
+        btn.appendChild(content);
+        list.appendChild(btn);
+      }
+    })
+    .catch(error => console.log(error))
+}
+
+var loadCommits = (url, repoName) => {
+  fetch(url)
+    .then(result => {
+      console.log(result.headers.get('Link'));
+      if (result.headers.get('Link')) {
+        let linkHeader = result.headers.get('Link');
+        let next = document.getElementById('next-commitList');
+        let prev = document.getElementById('prev-commitList');
+
+        if (linkHeader.includes('next')) {
+          console.log('there is a next page');
+          let url = getPageUrl(linkHeader, 'next');
+          next.disabled = false;
+          next.setAttribute("onClick", `loadCommits('${url}','${repoName}')`);
+        } else {
+          next.disabled = true;
+        }
+        if (linkHeader.includes('prev')) {
+          console.log('there is a prev page');
+          let url = getPageUrl(linkHeader, 'prev');
+          prev.disabled = false;
+          prev.setAttribute("onClick", `loadCommits('${url}','${repoName}')`);
+        } else {
+          prev.disabled = true;
+        }
+      }
+      return result.json()
+    })
+    .then((data) => {
+      commitList = data;
+      let el = document.getElementById('commitCount');
+      init(el);
+      let list = document.getElementById("commitList");
+      init(list);
+      el.innerText = data.length;
+      for (let i = 0; i < data.length; i++) {
+        let sha = data[i].sha.slice(0, 5);
+        let btn = document.createElement("BUTTON");
+        btn.setAttribute("class", "btn btn-info btn-sm");
+        btn.setAttribute("onClick", `getCommitDetails("${repoName}","${sha}")`);
+        let content = document.createTextNode(`commit: ${i} #:${sha}`);
         btn.appendChild(content);
         list.appendChild(btn);
       }
