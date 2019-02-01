@@ -157,3 +157,16 @@ var getPageUrl = (header, nav) => {
   }
   return url;
 }
+
+var linkParser = (link) => {
+  let re = /<([^\?]+\?[a-z]+=([\d]+))>;[\s]*rel="([a-z]+)"/g;
+  let arrRes = [];
+  let obj = {};
+  while ((arrRes = re.exec(link)) !== null) {
+    obj[arrRes[3]] = {
+      url: arrRes[1],
+      page: arrRes[2]
+    };
+  }
+  return obj;
+}
