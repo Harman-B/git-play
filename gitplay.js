@@ -1,4 +1,4 @@
-var username, repoList, commitList;
+dvar username, repoList, commitList;
 
 var getRepos = () => {
   username = document.getElementById('username').value;
