@@ -1,3 +1,3 @@
 <input #username type="text" placeholder="username">
 <button (click)="getRepo(username.value)">Get Repos</button>
-<div><span>Repos: {{repos}}</span></div> 
+<div><span *ngFor="let repo of repos"><p>{{repo.name}}</p></span></div>
