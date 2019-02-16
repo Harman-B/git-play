@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ReposService } from '../repos.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { UserService } from '../user.service';
 import { RepoList } from '../repoList';
-
+ 
 @Component({
   selector: 'app-link-user',
   templateUrl: './link-user.component.html',
@@ -9,24 +9,30 @@ import { RepoList } from '../repoList';
 })
 export class LinkUserComponent implements OnInit {
   
-  public repos: RepoList[];
-
-  constructor(private _repos: ReposService) { }
+  public repos;
+  public user: object;
+  constructor(private _user: UserService) { }
 
   ngOnInit() {
   }
 
-  getRepo(username) {
-    console.log(username);
-    this._repos.getGithubRepos(username)
+  getUser(username: string) {
+    this._user.getUserData(username)
       .subscribe((data) => {
-        console.log(data.length);
-        console.log(data);
-        
-        this.repos = data;
-        // console.log(this.repos);
+        this.user = data;
       });
-    // console.log(this.repos);
-    
   }
+
+  // getRepo(username) {
+  //   console.log(username);
+  //   this._repos.getGithubRepos(username)
+  //     .subscribe((data: RepoList) => {
+  //       // console.log(data.length);
+  //       console.log(data);
+        
+  //       this.repos = data;
+  //     });
+  //   // console.log(this.repos);
+    
+  // }
 }

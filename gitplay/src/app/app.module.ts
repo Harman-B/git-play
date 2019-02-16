@@ -5,17 +5,20 @@ import { AppComponent } from './app.component';
 import { LinkUserComponent } from './link-user/link-user.component';
 import { ReposService } from './repos.service';
 import { HttpClientModule } from '@angular/common/http';
+import { RepositoriesComponent } from './repositories/repositories.component';
+import { UserService } from './user.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LinkUserComponent
+    LinkUserComponent,
+    RepositoriesComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule
   ],
-  providers: [ReposService],
+  providers: [UserService,ReposService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

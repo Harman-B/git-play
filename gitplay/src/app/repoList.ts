@@ -1,5 +1,4 @@
-export class RepoList {
+export interface RepoList {
     name: string;
     full_name: string;
-    something: string;
 }
