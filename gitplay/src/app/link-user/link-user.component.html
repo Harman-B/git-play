@@ -1,8 +1,8 @@
-<div class="">
+<div>
   <input #username type="text" placeholder="username">
   <button class="btn btn-sm btn-primary" (click)="getUser(username.value)">Let's Go</button>
   <hr>
-  <div class="card mb-3 text-right" style="max-width: 540px;">
+  <div *ngIf="user" class="card mb-3 text-right" style="max-width: 540px;">
     <div class="row no-gutters">
       <div class="col-md-6">
         <img [src]="user.avatar_url" class="card-img">
@@ -16,7 +16,6 @@
               Following: <span class="data">{{user.following}}</span><br>
               Followers: <span class="data">{{user.followers}}</span></p>
           </div>
-          <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
           <a href="#" class="btn btn-primary">List Repos</a>
         </div>
       </div>

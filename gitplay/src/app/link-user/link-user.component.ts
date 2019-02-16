@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { UserService } from '../user.service';
-import { RepoList } from '../repoList';
  
 @Component({
   selector: 'app-link-user',
@@ -9,7 +8,6 @@ import { RepoList } from '../repoList';
 })
 export class LinkUserComponent implements OnInit {
   
-  public repos;
   public user: object;
   constructor(private _user: UserService) { }
 
@@ -23,16 +21,4 @@ export class LinkUserComponent implements OnInit {
       });
   }
 
-  // getRepo(username) {
-  //   console.log(username);
-  //   this._repos.getGithubRepos(username)
-  //     .subscribe((data: RepoList) => {
-  //       // console.log(data.length);
-  //       console.log(data);
-        
-  //       this.repos = data;
-  //     });
-  //   // console.log(this.repos);
-    
-  // }
 }
