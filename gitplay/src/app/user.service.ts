@@ -20,7 +20,7 @@ export class UserService {
     getRepoList(url: string) {
         console.log(url);
         
-        return this.http.get(url);
+        return this.http.get(url, {observe: 'response'});
     }
     
     getCommitList(url: string) {

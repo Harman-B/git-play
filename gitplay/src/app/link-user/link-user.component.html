@@ -25,17 +25,18 @@
       </div>
     </div>
 
-    <div class="col-md-6">
-      <div *ngIf="repoList">
+    <div class="col-md-6" *ngIf="repoList && repoList.length">
+      <p>Repositories: {{repoList.length}}</p>
+      <div  id="repos">
         <button *ngFor="let repo of repoList" class="btn btn-primary btn-sm" (click)="getCommits(repo.url)">{{repo.name}}</button>
       </div>
     </div>
 
   </div>
 
-
-  <div class="">
-    <div *ngIf="commitList">
+  <div *ngIf="commitList && commitList.length">
+      <p>Commits: {{commitList.length}}</p>
+    <div>
       <hr>
       <button *ngFor="let commit of commitList" class="btn btn-primary btn-sm">{{commit.sha| slice : 0 : 5 }}</button>
     </div>
