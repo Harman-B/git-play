@@ -6,11 +6,26 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
     
+    url:string = '';
+
     constructor(private http: HttpClient) { }
 
     getUserData(username) {
-        let url = '';
-        url = `https://api.github.com/users/${username}`;
+        this.url = `https://api.github.com/users/${username}`;
+        console.log(this.url);
+        
+        return this.http.get(this.url);
+    }
+
+    getRepoList(url: string) {
+        console.log(url);
+        
+        return this.http.get(url);
+    }
+    
+    getCommitList(url: string) {
+        console.log(url);
+        
         return this.http.get(url);
     }
 }

@@ -6,19 +6,41 @@ import { UserService } from '../user.service';
   templateUrl: './link-user.component.html',
   styleUrls: ['./link-user.component.css']
 })
-export class LinkUserComponent implements OnInit {
+export class LinkUserComponent {
   
-  public user: object;
+  user: object;
+  repoList: object;
+  commitList: object;
+
   constructor(private _user: UserService) { }
 
   ngOnInit() {
   }
 
   getUser(username: string) {
+    
     this._user.getUserData(username)
       .subscribe((data) => {
         this.user = data;
       });
   }
 
+  getRepos(userURL: string) {
+    this._user.getRepoList(userURL)
+      .subscribe((data) => {
+        console.log(data);
+        
+        this.repoList = data;
+      })
+  }
+
+  getCommits(repoURL: string) {
+    let commitURL = repoURL + '/commits'
+    this._user.getRepoList(commitURL)
+      .subscribe((data) => {
+        console.log(data);
+        
+        this.commitList = data;
+      })
+  }
 }
