@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LinkUserComponent } from './link-user/link-user.component';
-import { ReposService } from './repos.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RepositoriesComponent } from './repositories/repositories.component';
 import { UserService } from './user.service';
@@ -18,7 +17,7 @@ import { UserService } from './user.service';
     BrowserModule,
     HttpClientModule
   ],
-  providers: [UserService,ReposService],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
