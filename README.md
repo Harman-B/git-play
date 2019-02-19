@@ -1,4 +1,5 @@
 # git-play
 making git more enjoyable and useful for review
 
-preparing to migrate to Angular
+- This project is based on Angular framework.
+- It uses Github API to get details of the public repositories.
