@@ -13,3 +13,9 @@
     height: 250px;
     overflow: scroll;
 }
+
+#commits  {
+    background-color: azure;
+    height: 250px;
+    overflow: scroll;
+}

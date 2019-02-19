@@ -26,6 +26,6 @@ export class UserService {
     getCommitList(url: string) {
         console.log(url);
         
-        return this.http.get(url);
+        return this.http.get(url, {observe: 'response'});
     }
 }

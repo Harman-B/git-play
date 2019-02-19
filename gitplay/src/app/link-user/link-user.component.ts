@@ -33,6 +33,27 @@ export class LinkUserComponent {
         
         if(resp.headers.get('Link')) {
           let linkHeader = resp.headers.get('Link');
+          
+          if(linkHeader.includes('next')) {
+            let links = this.linkParser(linkHeader);
+            let nextURL = links['next']['url'];
+            this.getRepos(nextURL);
+          }
+        }
+      })
+  }
+       
+  getCommits(repoURL: string) {
+    if (repoURL.includes('sha')) {
+      repoURL = repoURL.slice(0,-6);
+      console.log(repoURL);
+    }
+    this._user.getCommitList(repoURL)
+      .subscribe((resp) => {
+        
+        this.commitList = this.commitList.concat(resp.body);
+        if(resp.headers.get('Link')) {
+          let linkHeader = resp.headers.get('Link');
           console.log(linkHeader);
           
           if(linkHeader.includes('next')) {
@@ -40,26 +61,9 @@ export class LinkUserComponent {
             console.log(links);
             let nextURL = links['next']['url'];
             console.log(nextURL);
-            this.getRepos(nextURL);
-            // this._user.getRepoList(nextURL)
-            //     .subscribe((resp2) => {
-                  
-            //       linkHeader = resp2.headers.get('Link');
-            //       this.repoList = this.repoList.concat(resp2.body);
-            //     })
-            
+            this.getCommits(nextURL);
           }
         }
-      })
-  }
-       
-  getCommits(repoURL: string) {
-    let commitURL = repoURL + '/commits'
-    this._user.getRepoList(commitURL)
-      .subscribe((data) => {
-        console.log(data);
-        
-        this.commitList.push(data);
       })
   }
 
