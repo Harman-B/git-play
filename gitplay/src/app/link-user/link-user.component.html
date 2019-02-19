@@ -1,0 +1,44 @@
+<div>
+  <input #username type="text" placeholder="username">
+  <button class="btn btn-sm btn-primary" (click)="getUser(username.value)">Let's Go</button>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div *ngIf="user" class="card mb-3 text-right inline" style="max-width: 540px;">
+        <div class="row no-gutters">
+          <div class="col-md-6">
+            <img [src]="user.avatar_url" class="card-img">
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">{{user.login}}</h5>
+              <div class="card-text">
+                <p>Public Repositories: <span class="data">{{user.public_repos}}</span><br>
+                  Public Gists: <span class="data">{{user.public_gists}}</span><br>
+                  Following: <span class="data">{{user.following}}</span><br>
+                  Followers: <span class="data">{{user.followers}}</span></p>
+              </div>
+              <a href="#" class="btn btn-primary" (click)="getRepos(user.repos_url)">List Repos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" *ngIf="repoList && repoList.length">
+      <p>Repositories: {{repoList.length}}</p>
+      <div  id="repos">
+        <button *ngFor="let repo of repoList" class="btn btn-primary btn-sm" (click)="getCommits(repo.commits_url)">{{repo.name}}</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="commitList && commitList.length">
+      <p>Commits: {{commitList.length}}</p>
+    <div id="commits">
+      <hr>
+      <button *ngFor="let commit of commitList" class="btn btn-primary btn-sm">{{commit.sha| slice : 0 : 5 }}</button>
+    </div>
+  </div>
+</div>

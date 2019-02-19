@@ -1,0 +1,21 @@
+.data {
+    color: blue;
+    font-family: menlo;
+    font-weight: 500;
+}
+
+.btn {
+    margin: 5px;
+}
+
+#repos  {
+    background-color: azure;
+    height: 250px;
+    overflow: scroll;
+}
+
+#commits  {
+    background-color: azure;
+    height: 250px;
+    overflow: scroll;
+}
