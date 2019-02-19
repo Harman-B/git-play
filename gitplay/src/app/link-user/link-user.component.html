@@ -28,10 +28,29 @@
     <div class="col-md-6" *ngIf="repoList && repoList.length">
       <p>Repositories: {{repoList.length}}</p>
       <div  id="repos">
-        <button *ngFor="let repo of repoList" class="btn btn-primary btn-sm" (click)="getCommits(repo.commits_url)">{{repo.name}}</button>
+        <button *ngFor="let repo of repoList" class="btn btn-primary btn-sm" (click)="getRepoDetails(repo.url)">{{repo.name}}</button>
       </div>
     </div>
 
+  </div>
+
+  <div *ngIf="repoDetails.owner" id="repo-details">
+      <div class="card text-center">
+          <div class="card-header">
+              {{repoDetails.owner.login}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{repoDetails.name}}</h5>
+            <p class="card-text">{{repoDetails.description}}</p>
+            <p>Subscribers: {{repoDetails.subscribers_count}}</p>
+            <p>Watchers: {{repoDetails.watchers_count}}</p>
+            <a href="#" class="btn btn-primary">Commits</a>
+          </div>
+          <div class="card-footer text-muted">
+            <a [href]="repoDetails.svn_url">{{repoDetails.name}}</a>
+            github link: {{repoDetails.svn_url}}
+          </div>
+        </div>
   </div>
 
   <div *ngIf="commitList && commitList.length">

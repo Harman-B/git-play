@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { UserService } from '../user.service';
+import { APIService } from '../github.service';
  
 @Component({
   selector: 'app-link-user',
@@ -8,32 +8,32 @@ import { UserService } from '../user.service';
 })
 export class LinkUserComponent {
   
-  user: object;
+  public user: object;
   public repoList: any[] = [];
   public commitList: any[] = [];
+  public repoDetails = {};
 
-  constructor(private _user: UserService) { }
+  constructor(private _user: APIService) { }
 
   ngOnInit() {
   }
 
   getUser(username: string) {
+  let userURL:string = '';
+  userURL = `https://api.github.com/users/${username}`;
     
-    this._user.getUserData(username)
-      .subscribe((data) => {
-        this.user = data;
+    this._user.githubAPI(userURL)
+      .subscribe((resp) => {
+        this.user = resp.body;
       });
   }
 
-  getRepos(userURL: string) {
-    
-    this._user.getRepoList(userURL)
+  getRepos(user_repos: string) {
+    this._user.githubAPI(user_repos)
       .subscribe((resp) => {
         this.repoList = this.repoList.concat(resp.body);
-        
         if(resp.headers.get('Link')) {
           let linkHeader = resp.headers.get('Link');
-          
           if(linkHeader.includes('next')) {
             let links = this.linkParser(linkHeader);
             let nextURL = links['next']['url'];
@@ -42,20 +42,27 @@ export class LinkUserComponent {
         }
       })
   }
+  
+  getRepoDetails(repoURL: string) {
+    console.log(repoURL);
+    this._user.githubAPI(repoURL)
+        .subscribe((resp) => {
+          console.log(resp.body);
+          this.repoDetails = resp.body;
+        });
+  }
        
   getCommits(repoURL: string) {
     if (repoURL.includes('sha')) {
       repoURL = repoURL.slice(0,-6);
       console.log(repoURL);
     }
-    this._user.getCommitList(repoURL)
+    this._user.githubAPI(repoURL)
       .subscribe((resp) => {
-        
         this.commitList = this.commitList.concat(resp.body);
         if(resp.headers.get('Link')) {
           let linkHeader = resp.headers.get('Link');
           console.log(linkHeader);
-          
           if(linkHeader.includes('next')) {
             let links = this.linkParser(linkHeader);
             console.log(links);
