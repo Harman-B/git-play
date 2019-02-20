@@ -5,11 +5,13 @@ import { AppComponent } from './app.component';
 import { LinkUserComponent } from './link-user/link-user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { APIService } from './github.service';
+import { UserDetailsComponent } from './link-user/user-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LinkUserComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,

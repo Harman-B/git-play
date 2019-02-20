@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .data {
     color: blue;
     font-family: menlo;
@@ -10,7 +14,7 @@
 
 #repos  {
     background-color: azure;
-    height: 250px;
+    height: 230px;
     overflow: scroll;
 }
 
@@ -18,4 +22,9 @@
     background-color: azure;
     height: 250px;
     overflow: scroll;
+}
+
+.section {
+    margin-top: 5px;
+    box-shadow: 0 2px 6px rgba(47,51,55,0.1);
 }

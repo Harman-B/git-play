@@ -8,7 +8,7 @@ import { APIService } from '../github.service';
 })
 export class LinkUserComponent {
   
-  public user: object;
+  public userURL: string = '';
   public repoList: any[] = [];
   public commitList: any[] = [];
   public repoDetails = {};
@@ -18,17 +18,8 @@ export class LinkUserComponent {
   ngOnInit() {
   }
 
-  getUser(username: string) {
-  let userURL:string = '';
-  userURL = `https://api.github.com/users/${username}`;
-    
-    this._user.githubAPI(userURL)
-      .subscribe((resp) => {
-        // checking the rate limiting
-        console.log(resp.headers.get('X-RateLimit-Limit'));
-        
-        this.user = resp.body;
-      });
+  getUserDetails(username: string) {
+    this.userURL = `https://api.github.com/users/${username}`;
   }
 
   getRepos(user_repos: string) {

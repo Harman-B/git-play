@@ -1,59 +1,42 @@
 <div>
   <input #username type="text" placeholder="username">
-  <button class="btn btn-sm btn-primary" (click)="getUser(username.value)">Let's Go</button>
-  <hr>
+  <button class="btn btn-sm btn-primary" (click)="getUserDetails(username.value)">Let's Go</button>
   <div class="row">
-    <div class="col-md-6">
-      <div *ngIf="user" class="card mb-3 text-right inline" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-6">
-            <img [src]="user.avatar_url" class="card-img">
-          </div>
-          <div class="col-md-6">
-            <div class="card-body">
-              <h5 class="card-title">{{user.login}}</h5>
-              <div class="card-text">
-                <p>Public Repositories: <span class="data">{{user.public_repos}}</span><br>
-                  Public Gists: <span class="data">{{user.public_gists}}</span><br>
-                  Following: <span class="data">{{user.following}}</span><br>
-                  Followers: <span class="data">{{user.followers}}</span></p>
-              </div>
-              <a href="#" class="btn btn-primary" (click)="getRepos(user.repos_url)">List Repos</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-md-6 border section" *ngIf="userURL">
+
+      <app-user-details [url] = 'userURL'></app-user-details>
+
     </div>
 
-    <div class="col-md-6" *ngIf="repoList && repoList.length">
-      <p>Repositories: {{repoList.length}}</p>
-      <div  id="repos">
+    <div class="col-md-6 border section" *ngIf="repoList && repoList.length">
+      <h5 class="text-center">Repositories: {{repoList.length}}</h5>
+      <div id="repos">
         <button *ngFor="let repo of repoList" class="btn btn-primary btn-sm" (click)="getRepoDetails(repo.url)">{{repo.name}}</button>
       </div>
     </div>
 
   </div>
 
-  <div *ngIf="repoDetails.owner" id="repo-details">
-      <div class="card text-center">
-          <div class="card-header">
-              {{repoDetails.owner.login}}
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">{{repoDetails.name}}</h5>
-            <p class="card-text">{{repoDetails.description}}</p>
-            <p>Subscribers: {{repoDetails.subscribers_count}}</p>
-            <p>Watchers: {{repoDetails.watchers_count}}</p>
-            <a href="#" class="btn btn-primary">Commits</a>
-          </div>
-          <div class="card-footer text-muted">
-              github link:<a [href]="repoDetails.svn_url">{{repoDetails.name}}</a>
-          </div>
-        </div>
+  <div class="border section" *ngIf="repoDetails.owner" id="repo-details">
+    <div class="card text-center">
+      <div class="card-header">
+        {{repoDetails.owner.login}}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{repoDetails.name}}</h5>
+        <p class="card-text">{{repoDetails.description}}</p>
+        <p>Subscribers: {{repoDetails.subscribers_count}}</p>
+        <p>Watchers: {{repoDetails.watchers_count}}</p>
+        <a href="#" class="btn btn-primary">Commits</a>
+      </div>
+      <div class="card-footer text-muted">
+        github link:<a [href]="repoDetails.svn_url">{{repoDetails.name}}</a>
+      </div>
+    </div>
   </div>
 
-  <div *ngIf="commitList && commitList.length">
-      <p>Commits: {{commitList.length}}</p>
+  <div *ngIf="commitList && commitList.length" class="section">
+    <p>Commits: {{commitList.length}}</p>
     <div id="commits">
       <hr>
       <button *ngFor="let commit of commitList" class="btn btn-primary btn-sm">{{commit.sha| slice : 0 : 5 }}</button>
