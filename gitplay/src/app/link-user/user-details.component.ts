@@ -1,5 +1,6 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, Input, Output } from '@angular/core';
 import { APIService } from '../github.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-user-details',
@@ -9,6 +10,7 @@ import { APIService } from '../github.service';
 export class UserDetailsComponent implements OnChanges {
 
   @Input() url: string;
+  @Output() emitURL = new EventEmitter<string>();
   public userDetails: object = {};
 
   constructor(private _userDetails: APIService) { }
@@ -23,5 +25,10 @@ export class UserDetailsComponent implements OnChanges {
         
         this.userDetails = resp.body;
         });
+  }
+
+  getRepos(repoListURL: string) {
+    console.log(repoListURL);
+    this.emitURL.emit(repoListURL);
   }
 }

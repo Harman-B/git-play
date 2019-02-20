@@ -20,10 +20,11 @@ export class LinkUserComponent {
 
   getUserDetails(username: string) {
     this.userURL = `https://api.github.com/users/${username}`;
+    //also fires user-details component
   }
 
-  getRepos(user_repos: string) {
-    this._user.githubAPI(user_repos)
+  getRepos(user_reposURL) {
+    this._user.githubAPI(user_reposURL)
       .subscribe((resp) => {
         this.repoList = this.repoList.concat(resp.body);
         if(resp.headers.get('Link')) {

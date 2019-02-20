@@ -4,7 +4,9 @@
   <div class="row">
     <div class="col-md-6 border section" *ngIf="userURL">
 
-      <app-user-details [url] = 'userURL'></app-user-details>
+      <app-user-details 
+          [url] = 'userURL'
+          (emitURL) = 'getRepos($event)'></app-user-details>
 
     </div>
 
