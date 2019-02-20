@@ -24,6 +24,9 @@ export class LinkUserComponent {
     
     this._user.githubAPI(userURL)
       .subscribe((resp) => {
+        // checking the rate limiting
+        console.log(resp.headers.get('X-RateLimit-Limit'));
+        
         this.user = resp.body;
       });
   }

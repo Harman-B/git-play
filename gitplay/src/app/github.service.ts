@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +10,11 @@ export class APIService {
 
     githubAPI(url:string) {
         console.log(url);
-        return this.http.get(url, {observe: 'response'});
+
+        const response = this.http.get(url, {
+            headers: new HttpHeaders({'Content-Type': 'application/json'}),
+            // params: new HttpParams().set('username', '').set('password', ''),
+            observe: 'response'});
+        return response;
     }
 }
