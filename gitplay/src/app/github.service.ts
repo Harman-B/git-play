@@ -12,9 +12,10 @@ export class APIService {
         console.log(url);
 
         const response = this.http.get(url, {
-            headers: new HttpHeaders({'Content-Type': 'application/json'}),
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': '03abfa863fe6904145a8bb97df98e302290bbb8f'}),
             // params: new HttpParams().set('username', '').set('password', ''),
             observe: 'response'});
         return response;
     }
 }
+// auth token: 03abfa863fe6904145a8bb97df98e302290bbb8f
